@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Lead_Source</fullName>
+        <label>Lead Source</label>
+        <description>For use in reports since standard Lead Source field on Campaign member is not available for reports.</description>
+        <type>text</type>
+        <externalId>false</externalId>
+        <required>false</required>
+        <formula>"BLANKVALUE(
+TEXT(Contact.LeadSource),
+TEXT(Lead.LeadSource)
+)"
+IF(LeadId <>"",TEXT(Lead.Status),"")
+</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    </fields>    
+    <fields>
+        <fullName>Lead_Status</fullName>
+        <label>Lead Status</label>
+        <description>For use in reports since standard Lead Status field on Campaign member is not available for reports.</description>
+        <type>text</type>
+        <externalId>false</externalId>
+        <required>false</required>
+        <formula>"BLANKVALUE(
+TEXT(Contact.LeadSource),
+TEXT(Lead.LeadSource)
+)"
+IF(LeadId <>"",TEXT(Lead.Status),"")
+</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    </fields>
+    <fields>
+        <fullName>Member_Count__c</fullName>
+        <externalId>false</externalId>
+        <label>Member Count</label>
+        <description>Rule of 1 for campaign members</description>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+</CustomObject>

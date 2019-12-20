@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Campaign_Asset</fullName>
+        <label>Campaign Asset</label>
+        <description>Link to campaign offer (white paper, ebook, webinar recording, etc.)</description>
+        <externalId>false</externalId>
+        <required>false</required>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Landing_Page_URL</fullName>
+        <label>Landing Page URL</label>
+        <description>Link to the primary landing page receiving traffic from this campaign</description>
+        <externalId>false</externalId>
+        <required>false</required>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Key_Takeaways</fullName>
+        <label>Key Takeaways</label>
+        <description>The key takeaways that a prospect should learn from this material</description>
+        <type>textarea</type>           
+        <required>false</required>
+        <externalId>false</externalId>
+    </fields>   
+    <fields>
+        <fullName>Follow-Up_Questions</fullName>
+        <label>Follow-Up Questions</label>
+        <description>The most important follow up questions that a BDR could ask a lead based on their likely pain points</description>
+        <type>textarea</type>           
+        <required>false</required>
+        <externalId>false</externalId>
+    </fields>
+    <fields>
+        <fullName>Lost_Opportunities_in_Campaign</fullName>
+        <label>Lost Opportunities in Campaign</label>
+        <description>A count of the number of lost opportunities in the campaign</description>
+        <precision>18</precision>
+        <type>Number</type>           
+        <required>false</required>
+        <externalId>false</externalId>
+    </fields>
+    <fields>
+        <fullName>Marketing_Campaign_Name</fullName>
+        <label>Marketing Campaign Name</label>
+        <description>The internal marketing campaign naming convention so that default field can be used by the sales team</description>
+        <type>text</type>           
+        <required>false</required>
+        <externalId>false</externalId>
+    </fields>
+    <fields>
+        <fullName>Funnel_Stage</fullName>
+        <label>Funnel Stage</label>
+        <description>The stage in the buyers journey that this campaign where this campaign is most relevant</description>
+        <type>Picklist</type>
+        <required>false</required>
+        <externalId>false</externalId>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                    <value>
+                        <fullName>Top</fullName>
+                        <default>false</default>
+                        <label>Top</label>
+                    </value>
+                    <value>
+                        <fullName>Middle</fullName>
+                        <default>false</default>
+                        <label>Middle</label>
+                    </value>
+                    <value>
+                        <fullName>Bottom</fullName>
+                        <default>false</default>
+                        <label>Bottom</label>
+                    </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Members</fullName>
+        <externalId>false</externalId>
+        <label>Members</label>
+        <description>Counts all the members in this campaign</description>
+        <summaryForeignKey>CampaignMember.Campaign__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Marketing_Acquisition_Cost</fullName>
+        <label>Marketing Acquisition Cost</label>
+        <description>Unloaded marketing CAC, does not include salaries or overhead, only expenses logged on campaign</description> 
+        <type>Formula</type>
+        <required>false</required>
+        <externalId>false</externalId>
+        <formula>"IF( NumberOfWonOpportunities = 0, NULL ,
+(ActualCost / NumberOfWonOpportunities))"
+"IF( NumberOfResponses = 0, NULL ,
+(ActualCost / NumberOfResponses))"
+"IF(ActualCost = 0,
+
+0,
+
+( (AmountAllOpportunities) / ActualCost)
+
+)"
+"IF( NumberOfWonOpportunities = 0, 0 ,
+((NumberOfWonOpportunities / (NumberOfWonOpportunities+ Lost_Opportunities_in_Campaign__c ))))"
+"IF( NumberOfResponses = 0, NULL ,
+((NumberOfOpportunities / NumberOfResponses)))"
+"IF( ActualCost = 0, NULL ,
+(( ( AmountWonOpportunities ) - ActualCost ) / ActualCost))"
+</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    </fields>    
+    <fields>
+        <fullName>Cost_per_Response</fullName>
+        <label>Cost per Response</label>
+        <description>Actual cost / number of responses</description>
+        <type>Formula</type>
+        <required>false</required>
+        <externalId>false</externalId>
+        <formula>"IF( NumberOfWonOpportunities = 0, NULL ,
+(ActualCost / NumberOfWonOpportunities))"
+"IF( NumberOfResponses = 0, NULL ,
+(ActualCost / NumberOfResponses))"
+"IF(ActualCost = 0,
+
+0,
+
+( (AmountAllOpportunities) / ActualCost)
+
+)"
+"IF( NumberOfWonOpportunities = 0, 0 ,
+((NumberOfWonOpportunities / (NumberOfWonOpportunities+ Lost_Opportunities_in_Campaign__c ))))"
+"IF( NumberOfResponses = 0, NULL ,
+((NumberOfOpportunities / NumberOfResponses)))"
+"IF( ActualCost = 0, NULL ,
+(( ( AmountWonOpportunities ) - ActualCost ) / ActualCost))"
+</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    </fields>    
+    <fields>
+        <fullName>Pipeline:Spend_Ratio</fullName>
+        <label>Pipeline:Spend Ratio</label>
+        <description>The pipeline value is ACV. The industry benchmark of pipeline:spend is 10:1 ARR pipeline per program dollar.</description> 
+        <type>Formula</type>
+        <required>false</required>
+        <externalId>false</externalId>
+        <formula>"IF( NumberOfWonOpportunities = 0, NULL ,
+(ActualCost / NumberOfWonOpportunities))"
+"IF( NumberOfResponses = 0, NULL ,
+(ActualCost / NumberOfResponses))"
+"IF(ActualCost = 0,
+
+0,
+
+( (AmountAllOpportunities) / ActualCost)
+
+)"
+"IF( NumberOfWonOpportunities = 0, 0 ,
+((NumberOfWonOpportunities / (NumberOfWonOpportunities+ Lost_Opportunities_in_Campaign__c ))))"
+"IF( NumberOfResponses = 0, NULL ,
+((NumberOfOpportunities / NumberOfResponses)))"
+"IF( ActualCost = 0, NULL ,
+(( ( AmountWonOpportunities ) - ActualCost ) / ActualCost))"
+</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    </fields>    
+    <fields>
+        <fullName>Opportunity_Win_Rate</fullName>
+        <label>Opportunity Win Rate</label>
+        <description>The win rate of opportunities generated by this campaign</description> 
+        <type>Formula</type>
+        <required>false</required>
+        <externalId>false</externalId>
+        <formula>"IF( NumberOfWonOpportunities = 0, NULL ,
+(ActualCost / NumberOfWonOpportunities))"
+"IF( NumberOfResponses = 0, NULL ,
+(ActualCost / NumberOfResponses))"
+"IF(ActualCost = 0,
+
+0,
+
+( (AmountAllOpportunities) / ActualCost)
+
+)"
+"IF( NumberOfWonOpportunities = 0, 0 ,
+((NumberOfWonOpportunities / (NumberOfWonOpportunities+ Lost_Opportunities_in_Campaign__c ))))"
+"IF( NumberOfResponses = 0, NULL ,
+((NumberOfOpportunities / NumberOfResponses)))"
+"IF( ActualCost = 0, NULL ,
+(( ( AmountWonOpportunities ) - ActualCost ) / ActualCost))"
+</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    </fields>    
+    <fields>
+        <fullName>Response_to_Opp_Conv._Rate</fullName>
+        <label>Response to Opp Conv. Rate</label>
+        <description>The rate at which respondents convert to opportunities </description> 
+        <type>Formula</type>
+        <required>false</required>
+        <externalId>false</externalId>
+        <formula>"IF( NumberOfWonOpportunities = 0, NULL ,
+(ActualCost / NumberOfWonOpportunities))"
+"IF( NumberOfResponses = 0, NULL ,
+(ActualCost / NumberOfResponses))"
+"IF(ActualCost = 0,
+
+0,
+
+( (AmountAllOpportunities) / ActualCost)
+
+)"
+"IF( NumberOfWonOpportunities = 0, 0 ,
+((NumberOfWonOpportunities / (NumberOfWonOpportunities+ Lost_Opportunities_in_Campaign__c ))))"
+"IF( NumberOfResponses = 0, NULL ,
+((NumberOfOpportunities / NumberOfResponses)))"
+"IF( ActualCost = 0, NULL ,
+(( ( AmountWonOpportunities ) - ActualCost ) / ActualCost))"
+</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    </fields>    
+    <fields>
+        <fullName>ROI_on_Program_Spend</fullName>
+        <label>ROI on Program Spend</label>
+        <description>ROI on the amount of won opportunities (ACV) in the campaign, calculated as (Won Amount-Cost)/Cost</description> 
+        <type>Formula</type>
+        <required>false</required>
+        <externalId>false</externalId>
+        <formula>"IF( NumberOfWonOpportunities = 0, NULL ,
+(ActualCost / NumberOfWonOpportunities))"
+"IF( NumberOfResponses = 0, NULL ,
+(ActualCost / NumberOfResponses))"
+"IF(ActualCost = 0,
+
+0,
+
+( (AmountAllOpportunities) / ActualCost)
+
+)"
+"IF( NumberOfWonOpportunities = 0, 0 ,
+((NumberOfWonOpportunities / (NumberOfWonOpportunities+ Lost_Opportunities_in_Campaign__c ))))"
+"IF( NumberOfResponses = 0, NULL ,
+((NumberOfOpportunities / NumberOfResponses)))"
+"IF( ActualCost = 0, NULL ,
+(( ( AmountWonOpportunities ) - ActualCost ) / ActualCost))"
+</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    </fields>
+</CustomObject>    
