@@ -4,7 +4,7 @@
         <fullName>Lead_Source__c</fullName>
         <label>Lead Source</label>
         <description>For use in reports since standard Lead Source field on Campaign member is not available for reports.</description>
-        <type>text</type>
+        <type>TextArea</type>
         <externalId>false</externalId>
         <required>false</required>
         <formula>"BLANKVALUE(
@@ -19,7 +19,7 @@ IF(LeadId <>"",TEXT(Lead.Status),"")
         <fullName>Lead_Status__c</fullName>
         <label>Lead Status</label>
         <description>For use in reports since standard Lead Status field on Campaign member is not available for reports.</description>
-        <type>text</type>
+        <type>TextArea</type>
         <externalId>false</externalId>
         <required>false</required>
         <formula>"BLANKVALUE(
